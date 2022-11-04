@@ -1,0 +1,115 @@
+CREATE TABLE movie_stars (id INTEGER PRIMARY KEY AUTOINCREMENT,     first_name TEXT, 
+    last_name TEXT, 
+    birthdate TEXT, 
+    marital_status TEXT);
+    
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Daisy", "Edgar Jones", "May 24, 1998", "unmarried");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Bill", "Skarsgård", "August 9, 1990", "unmarried");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Finn", "Wolfhard", "December 23, 2002", "unmarried");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Millie", "Bobbybrown", "February 19, 2004", "unmarried");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Robert", "Downey Jr.", "April 4, 1965", "married");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Jamie", "Foxx", "December 13, 1967", "unmarried");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Steve", "Carell", "August 16, 1962", "married");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("John", "Krasinski", "October 20, 1979", "married");
+INSERT INTO movie_stars (first_name, 
+    last_name, 
+    birthdate, 
+    marital_status) 
+VALUES ("Rainn", "Wilson", "January 20, 1966", "married");
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT,          moviestar_id TEXT, title TEXT, 
+    genre TEXT, 
+    rotten_tomatoes TEXT, 
+    release_year TEXT);
+
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("1","Where the Crawdads Sing","Drama","34%","2022");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("2","Barbarian","Horror","92%","2022");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("2","IT","Horror","82%","2017");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("3","IT","Horror","82%","2017");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("4","Enola Holmes","Mystery","91%","2020");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("5","Iron Man","Action","94%","2008");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("5","Due Date","Comedy","39%","2010");
+INSERT INTO movies (moviestar_id, title, genre, rotten_tomatoes, release_year)
+VALUES ("6","Due Date","Comedy","39%","2010");
+    
+CREATE TABLE tv_shows (id INTEGER PRIMARY KEY,        moviestar_id TEXT, title TEXT, 
+    genre TEXT, 
+    rotten_tomatoes TEXT, 
+    release_year TEXT,
+    episodes INTEGER);
+    
+INSERT INTO tv_shows (moviestar_id, title, genre, rotten_tomatoes, release_year, episodes)
+VALUES ("9","The Office","comedy","81%","2005","201");
+INSERT INTO tv_shows (moviestar_id, title, genre, rotten_tomatoes, release_year, episodes)
+VALUES ("8","The Office","comedy","81%","2005","201");
+INSERT INTO tv_shows (moviestar_id, title, genre, rotten_tomatoes, release_year, episodes)
+VALUES ("7","The Office","comedy","81%","2005","201");
+INSERT INTO tv_shows (moviestar_id, title, genre, rotten_tomatoes, release_year, episodes)
+VALUES ("4","Stranger Things","mystery","92%","2016","34");
+INSERT INTO tv_shows (moviestar_id, title, genre, rotten_tomatoes, release_year, episodes)
+VALUES ("3","Stranger Things","mystery","92%","2016","34");
+
+
+SELECT first_name, last_name, title
+FROM movie_stars
+JOIN movies
+ON movie_stars.id=movies.moviestar_id;
+
+SELECT first_name, last_name, title
+FROM movie_stars
+JOIN tv_shows
+ON movie_stars.id=tv_shows.moviestar_id;
+
+SELECT first_name, last_name, m.title, t.title
+FROM movie_stars
+JOIN movies m
+ON m.moviestar_id= movie_stars.id
+JOIN tv_shows t
+ON t.moviestar_id=movie_stars.id;
+
+SELECT m.title, m.rotten_tomatoes, t.title, t.rotten_tomatoes
+FROM movies m
+JOIN tv_shows t
+ON m.moviestar_id=t.id
+WHERE m.rotten_tomatoes>"80"
+ORDER BY m.rotten_tomatoes desc
+;
